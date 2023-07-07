@@ -23,6 +23,14 @@ public class Emp{
         
     }
 
-   
+    @Model( value  = "testview")
+    public ModelView testview() {
+        ModelView mv = new ModelView();
+
+        mv.setView("/testview.jsp");
+        //  mv.addItem("test", this.getNom());
+
+        return mv;
+    }
        
 }
