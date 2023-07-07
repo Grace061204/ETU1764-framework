@@ -19,6 +19,7 @@ public class ModelView {
     public boolean isJson() {
         return isJson;
     }
+    
 
     public void setJson(boolean isJson) {
         this.isJson = isJson;
