@@ -10,3 +10,9 @@ import java.lang.annotation.Target;
 public @interface Model {
     String value();
 }
+
+@Target(ElementType.class)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Model {
+    String scope();
+}
