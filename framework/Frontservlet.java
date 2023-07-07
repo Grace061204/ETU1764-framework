@@ -169,18 +169,18 @@ public class Frontservlet extends HttpServlet {
             //     out.println("Clé : " + key + ", Valeur : " + value.getClassName() + ", " + value.getMethod());
             // }
 
-            // ModelView mv = (ModelView) o.getClass().getMethod(map.getMethod()).invoke(o);
+            ModelView mv = (ModelView) o.getClass().getMethod(map.getMethod()).invoke(o);
 
 
            
-            // for (Map.Entry<String, Mapping> entry : mappingUrls.entrySet()) {
-            //     String key = entry.getKey();
-            //     Mapping value = entry.getValue();
-            //     out.println("Clé : " + key + ", Valeur : " + value.getClassName() + ", " + value.getMethod());
-            // }
+            for (Map.Entry<String, Mapping> entry : mappingUrls.entrySet()) {
+                String key = entry.getKey();
+                Mapping value = entry.getValue();
+                out.println("Clé : " + key + ", Valeur : " + value.getClassName() + ", " + value.getMethod());
+            }
 
-            // RequestDispatcher dispatcher = request.getRequestDispatcher(mv.getView());
-            // dispatcher.forward(request, response);
+            RequestDispatcher dispatcher = request.getRequestDispatcher(mv.getView());
+            dispatcher.forward(request, response);
 
             
         } catch (Exception e) {

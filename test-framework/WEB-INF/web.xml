@@ -10,7 +10,7 @@
     <description>Servlet and JSP Examples</description>
     <servlet>
       <servlet-name>ServletToJsp</servlet-name>
-      <servlet-class>etu1764.framework.servlet</servlet-class>
+      <servlet-class>etu1764.framework.servlet.Frontservlet</servlet-class>
     </servlet>
      <servlet-mapping>
       <servlet-name>ServletToJsp</servlet-name>
