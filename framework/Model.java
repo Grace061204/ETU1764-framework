@@ -9,16 +9,17 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Model {
     String value();
+    String nameInput() default "";
 }
 
-@Target(ElementType.class)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Model {
-    String scope();
-}
+// @Target(ElementType.class)
+// @Retention(RetentionPolicy.RUNTIME)
+// public @interface Model {
+//     String scope();
+// }
 
-@Target(ElementType.class)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Model {
-    String admin();
-}
+// @Target(ElementType.class)
+// @Retention(RetentionPolicy.RUNTIME)
+// public @interface Model {
+//     String admin();
+// }

@@ -11,9 +11,13 @@
     <servlet>
       <servlet-name>ServletToJsp</servlet-name>
       <servlet-class>etu1764.framework.servlet.Frontservlet</servlet-class>
+      <init-param>
+            <param-name>session</param-name>
+            <param-value>userProfil</param-value>
+        </init-param>
     </servlet>
      <servlet-mapping>
       <servlet-name>ServletToJsp</servlet-name>
-      <url-pattern>/*</url-pattern>
+      <url-pattern>*.do</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -4,8 +4,22 @@ import java.io.File;
 import java.util.ArrayList;
 import jakarta.servlet.ServletException;
 import java.util.List;
+import jakarta.servlet.http.*;
+import java.util.HashMap;
+import etu1764.framework.Mapping;
+import model.Model;
+import java.lang.reflect.*;
+
+
  
 public class Util{
+    public String casesString(String input) {
+        char[] strrep = input.toCharArray();
+        strrep[0] = Character.toUpperCase(strrep[0]);
+
+        return new String(strrep);
+    }
+
     public String url(String url){
         String[] tab = url.split("/");
         return tab[2];
@@ -31,6 +45,13 @@ public class Util{
 		}
         return list;
 	}
+
+    public void setAttributeRequest(HttpServletRequest request, ModelView mv) {
+        HashMap<String, Object> donne = mv.getData();
+        for(String key : donne.keySet()) {
+            request.setAttribute(key, donne.get(key));
+        }
+    }
 
     // public ArrayList<Class<?>> getAllClass(){
     //     String path = "donnees";
@@ -58,6 +79,7 @@ public class Util{
         scanPackages(root, "", packages);
         return packages;
     }
+
 
     public  void scanPackages(File root, String packageName, List<String> packages) {
         File[] files = root.listFiles();
@@ -200,41 +222,35 @@ public class Util{
     //     return classes;
     // }
 
-    public List<Class<?>> getAllClass(String path, String tomPath, String packageName) throws ClassNotFoundException {
+    public List<Class<?>> getAllClass(String path, String tomPath) throws ClassNotFoundException {
         List<Class<?>> classes = new ArrayList<>();
         File directory = new File(path);
-    
+
         if (!directory.exists()) {
             return classes;
         }
-    
+
         File[] files = directory.listFiles();
         assert files != null;
         for (File file : files) {
             if (file.isDirectory()) {
-                // Vérifier si le dossier correspond au package spécifié
-                if (file.getName().equals(packageName)) {
-                    List<Class<?>> innerClasses = this.getAllClass(file.getAbsolutePath(), tomPath, packageName);
-                    classes.addAll(innerClasses);
-                }
+                List<Class<?>> innerClasses = this.getAllClass(file.getAbsolutePath(), tomPath);
+                classes.addAll(innerClasses);
             } else if (file.getName().endsWith(".class")) {
-                String absolutePathClass = file.getPath().replace("\\", "/");
-                int tomIntPath = absolutePathClass.indexOf(tomPath);
-    
-                String className = absolutePathClass.substring(tomIntPath + tomPath.length())
+                String absolute_path_class = file.getPath().replace("\\", "/");
+                int tom_int_path = absolute_path_class.indexOf(tomPath);
+
+                String className = absolute_path_class.substring(tom_int_path + tomPath.length())
                         .replace(".class", "")
                         .replace("/", ".");
-                
-                // Vérifier si la classe appartient au package spécifié
-                if (className.startsWith(packageName)) {
-                    String simpleClassName = className.substring(packageName.length() + 1);
-                    Class<?> clazz = Class.forName(className);
-                    classes.add(clazz);
-                }
+                Class<?> clazz = Class.forName(className);
+
+                classes.add(clazz);
             }
         }
         return classes;
     }
+
     public String processUrl(String url_input, String ctx) {
         ctx+="/";
         int ctx_ind = url_input.indexOf(ctx);
@@ -242,6 +258,21 @@ public class Util{
 
         return url;
     }
+
+    public String processUrlGet(String url_input, String ctx) {
+        ctx += "/";
+        int ctx_ind = url_input.indexOf(ctx);
+        String url = url_input.substring(ctx_ind + ctx.length());
+    
+        // Supprimer les paramètres de requête s'ils existent
+        int paramIndex = url.indexOf('?');
+        if (paramIndex != -1) {
+            url = url.substring(0, paramIndex);
+        }
+    
+        return url;
+    }
+    
     
 
 }
