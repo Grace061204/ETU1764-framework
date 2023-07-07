@@ -16,3 +16,9 @@ public @interface Model {
 public @interface Model {
     String scope();
 }
+
+@Target(ElementType.class)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Model {
+    String admin();
+}
