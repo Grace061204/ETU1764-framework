@@ -28,7 +28,7 @@ public class Emp{
         ModelView mv = new ModelView();
 
         mv.setView("/testview.jsp");
-        //  mv.addItem("test", this.getNom());
+        mv.addItem("/testview.jsp", this.getTest());
 
         return mv;
     }
